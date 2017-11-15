@@ -66,7 +66,36 @@ router.delete('/del', function (req, res, next) {
 
     })
     res.end();
-})
+});
+
+router.post('/delpt', function (req, res, next) {
+    console.log("in del pt route");
+    var delCord = req.body;
+    console.log(delCord);
+    Pt.find(function (err, ptList) {
+        var resArr = [];
+        if(err) return console.error(err);
+        else {
+            for(var i = 0; i < ptList.length; i++){
+
+                //console.log(ptList[i].x);
+
+                if(parseInt(ptList[i].x) == delCord.x && parseInt(ptList[i].y ) == delCord.y) {
+                    //console.log(ptList[i])
+                    ptList[i].remove();
+                } else {
+                    resArr.push(ptList[i]);
+                }
+            }
+
+            res.status(200).json(resArr);
+        }
+
+    })
+
+});
+
+
 
 
 

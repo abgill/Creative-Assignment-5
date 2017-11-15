@@ -39,6 +39,7 @@ $(document).ready(function () {
         success: function (result) {
             pts = result;
             drawMap();
+            updatePinList();
         }
     });
 
@@ -57,6 +58,7 @@ $(document).ready(function () {
                 success: function (result) {
                     pts = result;
                     drawMap();
+                    updatePinList();
                 }
             });
         }
@@ -74,4 +76,36 @@ function drawMap() {
         }
 
     });
+}
+
+function updatePinList() {
+    var lst ="";
+
+    for(var i =0; i < pts.length; i++){
+        lst += '<button x=\'' + pts[i].x +'\'' + ' y=\'' + pts[i].y + '\' onclick="delPin(this.getAttribute(\'x\'),this.getAttribute(\'y\'))"' +">";
+        lst += pts[i].x + ", " + pts[i].y + "</button>"
+    }
+
+    lst += '';
+
+    $("#pinList").html(lst);
+
+}
+
+function delPin(x,y) {
+
+    $.ajax({
+        type: "POST",
+        url: "/delpt",
+        data: {
+            x: x,
+            y: y
+        },
+        success: function (result) {
+            pts = result;
+            drawMap();
+            updatePinList();
+        }
+    });
+
 }
