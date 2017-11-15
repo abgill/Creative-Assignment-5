@@ -7,7 +7,8 @@ mongoose.connect('mongodb://localhost/worldmap', { useMongoClient: true });
 
 var PtSchema = mongoose.Schema({ //Defines the Schema for this database
     x: Number,
-    y: Number
+    y: Number,
+    name: String
 });
 
 var Pt = mongoose.model('Pt', PtSchema); //Makes an object from that schema as a model

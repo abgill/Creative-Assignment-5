@@ -47,13 +47,16 @@ $(document).ready(function () {
         var Xcord = e.pageX - $(this).offset().left;
         var Ycord = e.pageY - $(this).offset().top;
 
-        if (confirm("Place marker at " + Xcord + ", " + Ycord + "?") === true) {
+        var name = prompt("Enter Your name");
+
+        if (name != null || name != "") {
             $.ajax({
                 type: "POST",
                 url: "/setpt",
                 data: {
                     x: Xcord - 12,
-                    y: Ycord - 25
+                    y: Ycord - 25,
+                    name: name
                 },
                 success: function (result) {
                     pts = result;
@@ -79,14 +82,18 @@ function drawMap() {
 }
 
 function updatePinList() {
-    var lst ="";
+    var lst ="<ul>";
 
     for(var i =0; i < pts.length; i++){
+        lst += '<li>'
+        lst += pts[i].name + ": ";
+        lst += pts[i].x + ", " + pts[i].y;
         lst += '<button x=\'' + pts[i].x +'\'' + ' y=\'' + pts[i].y + '\' onclick="delPin(this.getAttribute(\'x\'),this.getAttribute(\'y\'))"' +">";
-        lst += pts[i].x + ", " + pts[i].y + "</button>"
+        //lst += pts[i].x + ", " + pts[i].y + "</button>"
+        lst += "Delete</button></li>";
     }
 
-    lst += '';
+    lst += '</ul>';
 
     $("#pinList").html(lst);
 
