@@ -20,15 +20,6 @@ db.once('open', function() { //Lets us know when we're connected
 
 
 
-var pts = [{
-    x:15,
-    y: 15
-},{
-    x:200,
-    y:200
-}];
-
-
 router.get('/getpts', function (req, res, next) {
     console.log("In get route");
     Pt.find(function(err,ptList) {
@@ -50,7 +41,17 @@ router.post('/setpt', function (req, res, next) {
     newPt.save(function(err, post) { //[4]
         if (err) return console.error(err);
         console.log(post);
-        res.sendStatus(200);
+
+        Pt.find(function(err,ptList) {
+            if (err) return console.error(err);
+            else {
+                console.log(ptList);
+
+
+            }
+            res.json(ptList);
+        })
+
     });
 });
 
