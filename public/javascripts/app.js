@@ -54,8 +54,8 @@ $(document).ready(function () {
                 type: "POST",
                 url: "/setpt",
                 data: {
-                    x: Xcord - 12,
-                    y: Ycord - 25,
+                    x: Math.floor(Xcord - 12),
+                    y: Math.floor(Ycord - 25),
                     name: name
                 },
                 success: function (result) {
@@ -88,9 +88,9 @@ function updatePinList() {
         lst += '<li>'
         lst += pts[i].name + ": ";
         lst += pts[i].x + ", " + pts[i].y;
-        lst += '<button x=\'' + pts[i].x +'\'' + ' y=\'' + pts[i].y + '\' onclick="delPin(this.getAttribute(\'x\'),this.getAttribute(\'y\'))"' +">";
+        lst += '<button x=\'' + pts[i].x +'\'' + ' y=\'' + pts[i].y + '\' onclick="delPin(this.getAttribute(\'x\'),this.getAttribute(\'y\'))"' +'class="btn-danger">';
         //lst += pts[i].x + ", " + pts[i].y + "</button>"
-        lst += "Delete</button></li>";
+        lst += "Delete</button><hr></li>";
     }
 
     lst += '</ul>';
@@ -105,8 +105,8 @@ function delPin(x,y) {
         type: "POST",
         url: "/delpt",
         data: {
-            x: x,
-            y: y
+            x: Math.floor(x),
+            y: Math.floor(y)
         },
         success: function (result) {
             pts = result;
